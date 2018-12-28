@@ -4,6 +4,9 @@ Project showcases React.js frontend UI consuming data from the i-memory/sql data
 
 <br/>
 
+![alt text](https://github.com/NileshSP/ReactJsAspnetEFCodeFirstSql/blob/master/screenshot.gif "Working example..")
+
+<br/>
 # Steps to get the project running
 
 Pre-requisites:
@@ -36,8 +39,6 @@ OR
 
 Once the project is build and run, a browser page would be presented with navigation options on right wherein 'Websites data' option contains functionality related to data access from in-memory/sql database
 
-
-![alt text](https://github.com/NileshSP/ReactJsAspnetEFCodeFirstSql/blob/master/screenshot.gif "Working example..")
 <br/>
 
 # Root folder contents: 
