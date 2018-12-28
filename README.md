@@ -1,10 +1,12 @@
-# React.Js, .Net Core(2.2) Web Api using Entity Framework code first interfacing In-memory/MS-Sql db 
+# Blazor/Razor components with .Net Core(2.1) using Entity Framework code first interfacing In-memory/MS-Sql db 
 
-Project showcases React.js frontend UI consuming data from the i-memory/sql database which communicates using .Net Core by exposing Web Api endpoints (for Json output) supplemented by entity framework scaffolded models
+Project showcases Blazor/Razor Components frontend UI(using C#) rendered on server(SSR) consuming data from the in-memory/sql database which communicates using .Net Core service using entity framework code first to database pattern
+
+Overall project uses webassembly as communication medium between client & server to render HTML(built on server) using C# oriented UI
 
 <br/>
 
-![alt text](https://github.com/NileshSP/ReactJsAspnetEFCodeFirstSql/blob/master/screenshot.gif "Working example..")
+![alt text](https://github.com/NileshSP/dotnetefrazorcompssr/blob/master/screenshot.gif "Working example..")
 
 <br/>
 # Steps to get the project running
@@ -17,7 +19,7 @@ Pre-requisites:
 <br/>
 
 Clone the current repository locally as
- `git clone https://github.com/NileshSP/ReactJsAspnetEFCodeFirstSql.git`
+ `git clone https://github.com/NileshSP/dotnetefrazorcompssr.git`
 
 <br/>
 
