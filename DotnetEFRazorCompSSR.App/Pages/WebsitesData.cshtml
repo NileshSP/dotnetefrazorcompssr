@@ -1,0 +1,115 @@
+﻿@using System.Threading;
+@using DotnetEFRazorCompSSR.App.Services;
+@using Newtonsoft.Json;
+@using Newtonsoft.Json.Linq;
+@page "/websitesdata"
+@inject WebsiteDataService WebsiteService
+
+<h1>Websites Data</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+<div class="d-flex justify-content-center form-inline py-2" role="toolbar">
+    <div class="form-group mb-2">
+        <label for="userTopNumber" class="px-2">Get top</label>
+        <select id="userTopNumber" class="form-control form-control-sm" bind="@topNumber" onchange="@(e => topNumber=int.Parse(e.Value.ToString()))">
+            @foreach (var item in Enumerable.Range(1, 10))
+            {
+                <option value="@item">@item</option>
+            };
+        </select>
+    </div>
+    <div class="form-group mb-2">
+        <label for="userDataInout" class="px-2">websites for date</label>
+        <input id="userDateInput" class="form-control form-control-sm" type="date" format-value="yyyy-MM-dd" bind="@userDate"
+               min="@minMaxDates?.MinDate.ToString("yyyy-MM-dd")" max="@minMaxDates?.MaxDate.ToString("yyyy-MM-dd")"
+               onchange="@(e => userDate = DateTime.Parse(e.Value.ToString()))" />
+    </div>
+    <div class="form-group mb-2 pr-2">
+        <label for="userColumns" class="px-2">with columns as</label>
+        <select id="userColumns" class="form-control form-control-sm" bind="@userColumnValue" onchange="@(e => userColumnValue=e.Value.ToString())">
+            @foreach (var item in lstColumns)
+            {
+                <option value="@item">@item</option>
+            };
+        </select>
+    </div>
+    <div class="form-group mb-2 pr-2">
+        <input id="btnView" class="btn btn-outline-primary btn-sm" type="button" value="View" onclick="@(async() => await this.getData())" />
+        <label for="btnView" class="px-2">&nbsp;</label>
+    </div>
+</div>
+    @if (websites == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    @foreach (var col in (new Websites()).GetType().GetProperties())
+                    {
+                        if (col.Name.ToString().Trim().ToLower() != "websiteid" && appliedColumnValue.ToLower().Contains(col.Name.ToLower()))
+                        {
+                            <th>@col.Name</th>
+                        }
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var website in jWebsites.Children<JObject>().ToList()) // iterate item rows
+                {
+                    <tr>
+                        @foreach (JToken colItem in website.Children()) // iterate columns for each row item
+                        {
+                            JProperty itemProps = (JProperty)colItem; // get column properties
+                            if (itemProps.Name.ToString().Trim().ToLower() != "websiteid" && appliedColumnValue.ToLower().Contains(itemProps.Name.ToLower()))
+                            {
+                                @if (itemProps.Name.ToString().Trim().ToLower() == "visitdate" && !string.IsNullOrEmpty(itemProps.Value.ToString()))
+                                {
+                                    <td>@DateTime.Parse(itemProps.Value.ToString()).ToString("MM/dd/yyyy")</td>
+                                }
+                                else if (itemProps.Name.ToString().Trim().ToLower() == "visitdate" && string.IsNullOrEmpty(itemProps.Value.ToString()))
+                                {
+                                    <td>&nbsp;</td>
+                                }
+                                else
+                                {
+                                    <td>@(itemProps.Value)</td>
+                                }
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+    @functions {
+        List<Websites> websites;
+        JArray jWebsites;
+        MinMaxDate minMaxDates;
+        DateTime userDate;
+        int topNumber = 5;
+        List<string> lstColumns = new List<string>() { "Url, TotalVisits, VisitDate", "Url, TotalVisits" };
+        string userColumnValue, appliedColumnValue;
+
+        protected override async Task OnInitAsync()
+        {
+            appliedColumnValue = lstColumns.FirstOrDefault();
+            userColumnValue = appliedColumnValue;
+            minMaxDates = await WebsiteService.GetMinMaxDateAsync();
+            userDate = minMaxDates.MinDate;
+            await getData();
+        }
+
+        private async Task getData()
+        {
+            //Thread.Sleep(5000);
+            websites = await WebsiteService.GetWebsitesAsync(userDate.ToShortDateString(), topNumber);
+            appliedColumnValue = userColumnValue;
+            string jsonWebsites = JsonConvert.SerializeObject(websites);
+            var parsedWebsites = JObject.Parse("{ 'items':" + jsonWebsites + "}");
+            jWebsites = (JArray)parsedWebsites["items"];
+        }
+    }
