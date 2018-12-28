@@ -24,7 +24,7 @@ Clone the current repository locally as
 <br/>
 
 Steps: using Visual Studio community edition editor
->1. Open the solution file (ReactJsAspnetEFSqlSln.sln) available in the root folder of the downloaded repository
+>1. Open the solution file (DotnetEFRazorCompSSR.sln) available in the root folder of the downloaded repository
 >2. Await until the project is ready as per the status shown in taskbar which loads required packages in the background
 >3. Hit -> F5 or select 'Debug -> Start Debugging' option to run the project
 
@@ -33,7 +33,7 @@ Steps: using Visual Studio community edition editor
 Steps: using Visual Studio code editor
 >1. Open the root folder of the downloaded repository 
 >2. Await until the project is ready as per the status shown in taskbar which loads required packages in the background
->3. Open Terminal - 'Terminal -> New Terminal' and execute commands as `cd ReactJsAspnetEFSql` & `dotnet build` & `dotnet run` sequentially
+>3. Open Terminal - 'Terminal -> New Terminal' and execute commands as `dotnet build` & `dotnet run` sequentially
 OR
 >4. Hit -> F5 or select 'Debug -> Start Debugging' option to run the project
 
@@ -44,8 +44,9 @@ Once the project is build and run, a browser page would be presented with naviga
 <br/>
 
 # Root folder contents: 
->1. ReactJsAspnetEFSql folder: contains frontend UI built using React.js(in ClientApp folder) and .Net Core Web Api endpoints
->2. ReactJsAspnetEFSqlTests folder: unit tests for Web Api Endpoints
->3. ReactJsAspnetEFSqlSln.sln solution file
->4. Readme.md file for project information
+>1. DotnetEFRazorCompSSR.App folder: contains frontend UI built using Blazor/Razor components and .Net Core services
+>2. DotnetEFRazorCompSSR.Server folder: server side rendering defaults
+>3. DotnetEFRazorCompSSR.Tests folder: unit tests for services
+>4. DotnetEFRazorCompSSR.sln solution file
+>5. Readme.md file for project information
 
