@@ -1,20 +1,26 @@
 #.net core with sql file process
-FROM microsoft/dotnet:2.2-sdk AS builder
+FROM microsoft/dotnet:2.1-sdk AS builder
 WORKDIR /app
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
-RUN apt-get install -y nodejs
+# COPY ./DotnetEFRazorCompSSR.App/*.csproj ./
+# #RUN dotnet restore DotnetEFRazorCompSSR.csproj
+# COPY ./DotnetEFRazorCompSSR.App ./
+# RUN dotnet build DotnetEFRazorCompSSR.App.csproj -c Release 
+# #--no-restore
 
-COPY ./ReactJsAspnetEFSql/*.csproj ./
-#RUN dotnet restore ReactJsAspnetEFSql.csproj
-COPY ./ReactJsAspnetEFSql ./
-RUN dotnet build ReactJsAspnetEFSql.csproj -c Release 
+# RUN dotnet publish DotnetEFRazorCompSSR.App.csproj -c Release -o out --no-restore
+
+COPY ./DotnetEFRazorCompSSR.Server/*.csproj ./
+#RUN dotnet restore DotnetEFRazorCompSSR.csproj
+COPY ./DotnetEFRazorCompSSR.Server ./
+RUN dotnet build DotnetEFRazorCompSSR.Server.csproj -c Release 
 #--no-restore
 
-RUN dotnet publish ReactJsAspnetEFSql.csproj -c Release -o out --no-restore
+RUN dotnet publish DotnetEFRazorCompSSR.Server.csproj -c Release -o out --no-restore
 
-FROM microsoft/dotnet:2.2-aspnetcore-runtime
+
+FROM microsoft/dotnet:2.1-aspnetcore-runtime
 WORKDIR /app
 COPY --from=builder /app/out .
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet ReactJsAspnetEFSql.dll
-#ENTRYPOINT ["dotnet", "ReactJsAspnetEFSql.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet DotnetEFRazorCompSSR.Server.dll
+#ENTRYPOINT ["dotnet", "DotnetEFRazorCompSSR.dll"]

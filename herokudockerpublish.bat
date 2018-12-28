@@ -15,16 +15,16 @@
 
 REM - This file assumes that you have access to the application and that you have docker installed
 REM : Setup your applications name below using App_Name created on heroku.com
-SET APP_NAME="reactjscoreefcfsql"
+SET APP_NAME="dotnetefrazorcompssr"
 
 REM - Delete all files and folders in publish
-del /q ".\ReactJsAspnetEFCodeFirstSql\bin\Release\netcoreapp2.2\publish\*"
-FOR /D %%p IN (".\ReactJsAspnetEFCodeFirstSql\bin\Release\netcoreapp2.2\publish\*.*") DO rmdir "%%p" /s /q
+del /q ".\DotnetEFRazorCompSSR.Server\bin\Debug\netcoreapp2.1\publish\*"
+FOR /D %%p IN (".\DotnetEFRazorCompSSR.Server\bin\Debug\netcoreapp2.1\publish\*.*") DO rmdir "%%p" /s /q
 
 dotnet clean --configuration Release
 dotnet publish -c Release
-copy Dockerfile .\ReactJsAspnetEFCodeFirstSql\bin\Release\netcoreapp2.2\publish\
-cd .\bin\Release\netcoreapp2.2\publish\
+copy Dockerfile .\DotnetEFRazorCompSSR.Server\bin\Debug\netcoreapp2.1\publish\
+cd .\bin\Release\netcoreapp2.1\publish\
 call heroku login
 call heroku container:push web -a %APP_NAME%
 call heroku container:release web -a %APP_NAME%
