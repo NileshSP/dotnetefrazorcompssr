@@ -13,7 +13,7 @@ Overall project uses webassembly as communication medium between client & server
 
 Pre-requisites:
 
->1. [.Net Core 2.2 SDK](https://www.microsoft.com/net/download/dotnet-core/2.2)
+>1. [.Net Core 2.1 SDK](https://www.microsoft.com/net/download/dotnet-core/2.1)
 >2. [Visual Studio Code](https://code.visualstudio.com/) or Recommended - [Visual Studio Community editon version 15.9.1](https://visualstudio.microsoft.com/vs/community/) or later editor
 
 <br/>
