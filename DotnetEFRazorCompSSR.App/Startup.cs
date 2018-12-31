@@ -28,7 +28,7 @@ namespace DotnetEFRazorCompSSR.App
         public void Configure(IBlazorApplicationBuilder app, WebsitesContext context)
         {
             //Populate initial data
-            context.SeedData();
+            context.SeedData().GetAwaiter().GetResult();
 
             app.AddComponent<App>("app");
         }

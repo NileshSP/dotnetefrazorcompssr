@@ -16,13 +16,13 @@ namespace DotnetEFRazorCompSSR.App.Services
             _context = context;
         }
 
-        public Task<List<Websites>> GetWebsitesAsync(string searchDate = null, int? topNumber = null)
+        public async Task<List<Websites>> GetWebsitesAsync(string searchDate = null, int? topNumber = null)
         {
-            return Task.Run<List<Websites>>(() => 
-            { 
-                DateTime dateValue;
-                List<Websites> websites = new List<Websites>();
-                try
+            DateTime dateValue;
+            List<Websites> websites = new List<Websites>();
+            try
+            {
+                return await Task.Run<List<Websites>>(() =>
                 {
                     string getFinalDate = (searchDate is null
                                             ? _context.WebsiteDetails.DefaultIfEmpty().Max(item => item.VisitDate).ToShortDateString() // get max searchDate from DB
@@ -56,12 +56,12 @@ namespace DotnetEFRazorCompSSR.App.Services
                     {
                         return websites.ToList<Websites>();
                     }
-                }
-                catch (Exception ex)
-                {
-                    return websites.ToList<Websites>();
-                }
-            });
+                });
+            }
+            catch (Exception ex)
+            {
+                return websites.ToList<Websites>();
+            }
         }
 
         public Task<MinMaxDate> GetMinMaxDateAsync()
@@ -69,7 +69,7 @@ namespace DotnetEFRazorCompSSR.App.Services
             return Task.Run<MinMaxDate>(() =>
             {
                 var visitDates = _context.WebsiteDetails.Select(s => s.VisitDate).Distinct().OrderBy(o => o);
-                return new MinMaxDate { MinDate = visitDates.FirstOrDefault().Date, MaxDate = visitDates.LastOrDefault().Date };
+                return new MinMaxDate { MinDate = visitDates.Take(1).FirstOrDefault().Date, MaxDate = visitDates.OrderByDescending(o => o).Take(1).FirstOrDefault().Date };
             });
         }
 

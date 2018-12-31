@@ -19,24 +19,24 @@ namespace DotnetEFRazorCompSSR.Tests
             services.AddSingleton<WebsiteDataService>();
             var serviceProvider = services.BuildServiceProvider();
             testContext = serviceProvider.GetService<WebsitesContext>();
-            testContext.SeedData();
+            testContext.SeedData().GetAwaiter().GetResult();
             websiteService = new WebsiteDataService(testContext);
         }
 
         [Test]
         public void WebsiteDataService_GetWebsitesAsync()
         {
-            var result = websiteService.GetWebsitesAsync(null,null);
-            Assert.True(result.Result.Count > 0);
+            var result = websiteService.GetWebsitesAsync(null,null).GetAwaiter().GetResult();
+            Assert.True(result.Count > 0);
         }
 
         [Test]
         public void WebsiteDataService_GetMinMaxDateAsync()
         {
-            var result = websiteService.GetMinMaxDateAsync();
-            Assert.IsNotNull(result.Result);
-            Assert.IsNotNull(result.Result.MaxDate);
-            Assert.IsNotNull(result.Result.MinDate);
+            var result = websiteService.GetMinMaxDateAsync().GetAwaiter().GetResult();
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.MaxDate);
+            Assert.IsNotNull(result.MinDate);
         }
     }
 }
