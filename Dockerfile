@@ -10,13 +10,13 @@ RUN dotnet build ./DotnetEFRazorCompSSR.App/DotnetEFRazorCompSSR.App.csproj
 
 RUN dotnet publish ./DotnetEFRazorCompSSR.App/DotnetEFRazorCompSSR.App.csproj 
 
-COPY ./DotnetEFRazorCompSSR.Server/*.csproj ./
+COPY ./DotnetEFRazorCompSSR.Server/*.csproj ./DotnetEFRazorCompSSR.Server/*.csproj
 #RUN dotnet restore DotnetEFRazorCompSSR.csproj
-COPY ./DotnetEFRazorCompSSR.Server ./
-RUN dotnet build DotnetEFRazorCompSSR.Server.csproj -c Release 
+COPY ./DotnetEFRazorCompSSR.Server ./DotnetEFRazorCompSSR.Server
+RUN dotnet build ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release 
 #--no-restore
 
-RUN dotnet publish DotnetEFRazorCompSSR.Server.csproj -c Release -o out --no-restore
+RUN dotnet publish ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release -o out --no-restore
 
 FROM nginx:alpine
 COPY ./DotnetEFRazorCompSSR.Server/bin/Release/netcoreapp2.1/publish /usr/share/nginx/html/
