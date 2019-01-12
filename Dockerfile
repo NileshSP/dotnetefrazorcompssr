@@ -3,7 +3,7 @@ FROM microsoft/dotnet:2.1-sdk AS builder
 WORKDIR /app
 
 COPY ./DotnetEFRazorCompSSR.App/*.csproj ./
-RUN dotnet restore DotnetEFRazorCompSSR.csproj
+#RUN dotnet restore DotnetEFRazorCompSSR.csproj
 COPY ./DotnetEFRazorCompSSR.App ./
 RUN dotnet build DotnetEFRazorCompSSR.App.csproj 
 #--no-restore
