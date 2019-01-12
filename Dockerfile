@@ -2,13 +2,13 @@
 FROM microsoft/dotnet:2.1-sdk AS builder
 WORKDIR /app
 
-COPY ./DotnetEFRazorCompSSR.App/*.csproj ./
-#RUN dotnet restore DotnetEFRazorCompSSR.csproj
-COPY ./DotnetEFRazorCompSSR.App ./
-RUN dotnet build DotnetEFRazorCompSSR.App.csproj 
+#COPY ./DotnetEFRazorCompSSR.App/*.csproj ./
+##RUN dotnet restore DotnetEFRazorCompSSR.csproj
+#COPY ./DotnetEFRazorCompSSR.App ./
+RUN dotnet build ./DotnetEFRazorCompSSR.App/DotnetEFRazorCompSSR.App.csproj 
 #--no-restore
 
-RUN dotnet publish DotnetEFRazorCompSSR.App.csproj 
+RUN dotnet publish ./DotnetEFRazorCompSSR.App/DotnetEFRazorCompSSR.App.csproj 
 
 COPY ./DotnetEFRazorCompSSR.Server/*.csproj ./
 #RUN dotnet restore DotnetEFRazorCompSSR.csproj
