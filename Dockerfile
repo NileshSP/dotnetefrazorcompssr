@@ -18,9 +18,12 @@ RUN dotnet build DotnetEFRazorCompSSR.Server.csproj -c Release
 
 RUN dotnet publish DotnetEFRazorCompSSR.Server.csproj -c Release -o out --no-restore
 
+FROM nginx:alpine
+COPY ./DotnetEFRazorCompSSR.Server/bin/Release/netcoreapp2.1/publish /usr/share/nginx/html/
+COPY nginx.conf /etc/nginx/nginx.conf
 
-FROM microsoft/dotnet:2.1-aspnetcore-runtime
-WORKDIR /app
-COPY --from=builder /app/out .
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet DotnetEFRazorCompSSR.Server.dll
+#FROM microsoft/dotnet:2.1-aspnetcore-runtime
+#WORKDIR /app
+#COPY --from=builder /app/out .
+#CMD ASPNETCORE_URLS=http://*:$PORT dotnet DotnetEFRazorCompSSR.Server.dll
 #ENTRYPOINT ["dotnet", "DotnetEFRazorCompSSR.dll"]
