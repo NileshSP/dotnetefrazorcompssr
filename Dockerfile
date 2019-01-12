@@ -5,10 +5,10 @@ WORKDIR /app
 #COPY ./DotnetEFRazorCompSSR.App/*.csproj ./
 ##RUN dotnet restore DotnetEFRazorCompSSR.csproj
 #COPY ./DotnetEFRazorCompSSR.App ./
-RUN dotnet build ./app/DotnetEFRazorCompSSR.App/DotnetEFRazorCompSSR.App.csproj 
+RUN dotnet build ./app/DotnetEFRazorCompSSR.App.csproj 
 #--no-restore
 
-RUN dotnet publish ./app/DotnetEFRazorCompSSR.App/DotnetEFRazorCompSSR.App.csproj 
+RUN dotnet publish ./app/DotnetEFRazorCompSSR.App.csproj 
 
 COPY ./DotnetEFRazorCompSSR.Server/*.csproj ./
 #RUN dotnet restore DotnetEFRazorCompSSR.csproj
