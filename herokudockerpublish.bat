@@ -18,12 +18,12 @@ REM : Setup your applications name below using App_Name created on heroku.com
 SET APP_NAME="dotnetefrazorcompssr"
 
 REM - Delete all files and folders in publish
-del /q ".\DotnetEFRazorCompSSR.Server\bin\Debug\netcoreapp2.1\publish\*"
-FOR /D %%p IN (".\DotnetEFRazorCompSSR.Server\bin\Debug\netcoreapp2.1\publish\*.*") DO rmdir "%%p" /s /q
+del /q ".\DotnetEFRazorCompSSR.Server\bin\Release\netcoreapp2.1\publish\*"
+FOR /D %%p IN (".\DotnetEFRazorCompSSR.Server\bin\Release\netcoreapp2.1\publish\*.*") DO rmdir "%%p" /s /q
 
 dotnet clean --configuration Release
 dotnet publish -c Release
-copy Dockerfile .\DotnetEFRazorCompSSR.Server\bin\Debug\netcoreapp2.1\publish\
+copy Dockerfile .\DotnetEFRazorCompSSR.Server\bin\Release\netcoreapp2.1\publish\
 cd .\bin\Release\netcoreapp2.1\publish\
 call heroku login
 call heroku container:push web -a %APP_NAME%
