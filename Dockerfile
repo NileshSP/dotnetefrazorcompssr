@@ -12,7 +12,7 @@ FROM nginx:alpine
 WORKDIR /app
 COPY --from=builder /app/DotnetEFRazorCompSSR.Server/out .
 COPY . /usr/share/nginx/html/
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY ./web.config /etc/nginx/web.config
 
 #FROM microsoft/dotnet:2.1-aspnetcore-runtime
 #WORKDIR /app
