@@ -8,6 +8,7 @@ COPY ./DotnetEFRazorCompSSR.Server/*.csproj ./DotnetEFRazorCompSSR.Server/*.cspr
 COPY ./DotnetEFRazorCompSSR.Server ./DotnetEFRazorCompSSR.Server
 RUN dotnet build ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release 
 RUN dotnet publish ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release -o out --no-restore
+CMD ["docker image inspect fc48eab0ae1a"]
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 FROM nginx:alpine
 COPY --from=builder /app .
