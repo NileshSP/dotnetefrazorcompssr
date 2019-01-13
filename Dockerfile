@@ -12,7 +12,7 @@ COPY ./DotnetEFRazorCompSSR.Server/nginx.conf ./DotnetEFRazorCompSSR.Server/out
 FROM nginx:alpine
 COPY --from=builder /app .
 COPY . /usr/share/nginx/html/
-COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 #FROM microsoft/dotnet:2.1-aspnetcore-runtime
 #WORKDIR /app
