@@ -19,7 +19,7 @@ RUN dotnet build ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.cspro
 RUN dotnet publish ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release -o out --no-restore
 
 FROM nginx:alpine
-COPY --from=builder /app/out .
+COPY --from=builder /app .
 COPY ./DotnetEFRazorCompSSR.Server/bin/Release/netcoreapp2.1/publish /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/nginx.conf
 
