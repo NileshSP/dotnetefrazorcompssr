@@ -3,7 +3,6 @@ WORKDIR /app
 COPY ./DotnetEFRazorCompSSR.App/*.csproj ./DotnetEFRazorCompSSR.App/*.csproj
 COPY ./DotnetEFRazorCompSSR.App ./DotnetEFRazorCompSSR.App
 RUN dotnet build ./DotnetEFRazorCompSSR.App/DotnetEFRazorCompSSR.App.csproj 
-#RUN dotnet publish ./DotnetEFRazorCompSSR.App/DotnetEFRazorCompSSR.App.csproj 
 COPY ./DotnetEFRazorCompSSR.Server/*.csproj ./DotnetEFRazorCompSSR.Server/*.csproj
 COPY ./DotnetEFRazorCompSSR.Server ./DotnetEFRazorCompSSR.Server
 RUN dotnet build ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release 
@@ -13,7 +12,7 @@ FROM nginx:alpine
 WORKDIR /app
 COPY --from=builder /app/DotnetEFRazorCompSSR.Server/out .
 COPY . /usr/share/nginx/html/
-COPY ./nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 #FROM microsoft/dotnet:2.1-aspnetcore-runtime
 #WORKDIR /app
