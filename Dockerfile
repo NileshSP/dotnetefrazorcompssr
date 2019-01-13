@@ -9,7 +9,7 @@ COPY ./DotnetEFRazorCompSSR.Server ./DotnetEFRazorCompSSR.Server
 RUN dotnet build ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release 
 RUN dotnet publish ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release -o out --no-restore
 FROM nginx:alpine
-COPY DotnetEFRazorCompSSR.Server/nginx.conf /etc/nginx/nginx.conf
+COPY ./DotnetEFRazorCompSSR.Server/nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app .
 COPY . /usr/share/nginx/html/
 
