@@ -7,7 +7,7 @@ COPY ./DotnetEFRazorCompSSR.Server/*.csproj ./DotnetEFRazorCompSSR.Server/*.cspr
 COPY ./DotnetEFRazorCompSSR.Server ./DotnetEFRazorCompSSR.Server
 RUN dotnet build ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release 
 RUN dotnet publish ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release -o out --no-restore
-COPY ./DotnetEFRazorCompSSR.Server/nginx.conf ./DotnetEFRazorCompSSR.Server/out
+#COPY ./DotnetEFRazorCompSSR.Server/nginx.conf ./DotnetEFRazorCompSSR.Server/out
 FROM microsoft/dotnet:2.1-aspnetcore-runtime
 WORKDIR /app
 COPY --from=builder /app/DotnetEFRazorCompSSR.Server/out .
