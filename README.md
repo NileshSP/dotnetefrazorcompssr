@@ -6,6 +6,10 @@ Overall project uses webassembly as communication medium between client & server
 
 <br/>
 
+[Live demo link - https://dotnetefrazorcompssr.herokuapp.com/](https://dotnetefrazorcompssr.herokuapp.com/)
+
+<br/>
+
 ![alt text](https://github.com/NileshSP/dotnetefrazorcompssr/blob/master/screenshot.gif "Working example..")
 
 <br/>
