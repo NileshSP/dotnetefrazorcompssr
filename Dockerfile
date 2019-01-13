@@ -1,6 +1,5 @@
 FROM microsoft/dotnet:2.1-sdk AS builder
 WORKDIR /app
-COPY ./nginx.conf ./
 COPY ./DotnetEFRazorCompSSR.App/*.csproj ./DotnetEFRazorCompSSR.App/*.csproj
 COPY ./DotnetEFRazorCompSSR.App ./DotnetEFRazorCompSSR.App
 RUN dotnet build ./DotnetEFRazorCompSSR.App/DotnetEFRazorCompSSR.App.csproj 
