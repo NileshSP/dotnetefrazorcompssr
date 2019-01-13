@@ -17,7 +17,7 @@ RUN dotnet build ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.cspro
 #--no-restore
 
 RUN dotnet publish ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release -o out --no-restore
-RUN docker container inspect
+CMD ["docker container inspect $(docker ps -lq)"] 
 
 FROM nginx:alpine
 COPY --from=builder /app .
