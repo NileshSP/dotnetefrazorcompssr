@@ -8,11 +8,9 @@ COPY ./DotnetEFRazorCompSSR.Server/*.csproj ./DotnetEFRazorCompSSR.Server/*.cspr
 COPY ./DotnetEFRazorCompSSR.Server ./DotnetEFRazorCompSSR.Server
 RUN dotnet build ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release 
 RUN dotnet publish ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release -o out --no-restore
-CMD ["docker image inspect fc48eab0ae1a"]
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 FROM nginx:alpine
 COPY --from=builder /app .
-COPY ./out/DotnetEFRazorCompSSR.Server/bin/Release/netcoreapp2.1/publish /usr/share/nginx/html/
+COPY ./out /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/nginx.conf
 
 #FROM microsoft/dotnet:2.1-aspnetcore-runtime
