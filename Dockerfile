@@ -4,6 +4,9 @@ COPY ./DotnetEFRazorCompSSR.App ./DotnetEFRazorCompSSR.App
 RUN dotnet build ./DotnetEFRazorCompSSR.App/DotnetEFRazorCompSSR.App.csproj 
 COPY ./DotnetEFRazorCompSSR.Server ./DotnetEFRazorCompSSR.Server
 RUN dotnet build ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release 
+COPY ./DotnetEFRazorCompSSR.Tests ./DotnetEFRazorCompSSR.Tests
+RUN dotnet build ./DotnetEFRazorCompSSR.Tests/DotnetEFRazorCompSSR.Tests.csproj 
+RUN dotnet test ./DotnetEFRazorCompSSR.Tests/DotnetEFRazorCompSSR.Tests.csproj 
 RUN dotnet publish ./DotnetEFRazorCompSSR.Server/DotnetEFRazorCompSSR.Server.csproj -c Release -o out --no-restore
 FROM microsoft/dotnet:2.1-aspnetcore-runtime
 WORKDIR /app
