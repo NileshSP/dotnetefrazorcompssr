@@ -6,9 +6,8 @@
 @inject WebsiteDataService WebsiteService
 
 <h1>Websites Data</h1>
-
 <p>This component demonstrates fetching data from the server.</p>
-<div class="d-flex justify-content-center form-inline py-2" role="toolbar">
+<div class="d-flex justify-content-start form-inline py-2" role="toolbar">
     <div class="form-group mb-2">
         <label for="userTopNumber" class="px-2">Get top</label>
         <select id="userTopNumber" class="form-control form-control-sm" bind="@topNumber" onchange="@(e => topNumber=int.Parse(e.Value.ToString()))">
