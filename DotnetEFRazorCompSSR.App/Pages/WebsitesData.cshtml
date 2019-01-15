@@ -7,7 +7,7 @@
 
 <h1>Websites Data</h1>
 <p>This component demonstrates fetching data from the server.</p>
-<div class="d-flex justify-content-start form-inline py-2" role="toolbar">
+<div class="d-flex justify-content-start form-inline py-2" style="visibility :@showFilterControls" role="toolbar">
     <div class="form-group mb-2">
         <label for="userTopNumber" class="px-2">Get top</label>
         <select id="userTopNumber" class="form-control form-control-sm" bind="@topNumber" onchange="@(e => topNumber=int.Parse(e.Value.ToString()))">
@@ -90,18 +90,27 @@
         DateTime userDate;
         int topNumber = 5;
         List<string> lstColumns = new List<string>() { "Url, TotalVisits, VisitDate", "Url, TotalVisits" };
-        string userColumnValue, appliedColumnValue;
+        string userColumnValue, appliedColumnValue, showFilterControls = "hidden";
 
-        protected override async Task OnInitAsync()
+        protected override Task OnInitAsync()
         {
             appliedColumnValue = lstColumns.FirstOrDefault();
             userColumnValue = appliedColumnValue;
-            minMaxDates = await WebsiteService.GetMinMaxDateAsync();
-            userDate = minMaxDates.MinDate;
-            getData();
+            return WebsiteService.GetMinMaxDateAsync().ContinueWith(e =>
+            {
+                minMaxDates = e.Result;
+                userDate = minMaxDates.MinDate;
+                Task.Run(() =>
+                {
+                    Thread.Sleep(75);
+                    showFilterControls = "visible";
+                    this.StateHasChanged();
+                });
+                return getData();
+            });
         }
 
-        private Task getData()  
+        private Task getData()
         {
             websites = null;
             this.StateHasChanged();
