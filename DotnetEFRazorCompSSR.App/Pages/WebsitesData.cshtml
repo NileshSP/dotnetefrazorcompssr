@@ -33,7 +33,7 @@
         </select>
     </div>
     <div class="form-group mb-2 pr-2">
-        <input id="btnView" class="btn btn-outline-primary btn-sm" type="button" value="View" onclick="@(async() => await this.getData())" />
+        <input id="btnView" class="btn btn-outline-primary btn-sm" type="button" value="View" onclick="@(() => this.getData())" />
         <label for="btnView" class="px-2">&nbsp;</label>
     </div>
 </div>
@@ -56,10 +56,10 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var website in jWebsites.Children<JObject>().ToList()) // iterate item rows
+                @foreach (var website in websites) // iterate item rows
                 {
                     <tr>
-                        @foreach (JToken colItem in website.Children()) // iterate columns for each row item
+                        @foreach (JToken colItem in website?.Children()) // iterate columns for each row item
                         {
                             JProperty itemProps = (JProperty)colItem; // get column properties
                             if (itemProps.Name.ToString().Trim().ToLower() != "websiteid" && appliedColumnValue.ToLower().Contains(itemProps.Name.ToLower()))
@@ -85,8 +85,7 @@
     }
 
     @functions {
-        List<Websites> websites;
-        JArray jWebsites;
+        JArray websites;
         MinMaxDate minMaxDates;
         DateTime userDate;
         int topNumber = 5;
@@ -99,16 +98,27 @@
             userColumnValue = appliedColumnValue;
             minMaxDates = await WebsiteService.GetMinMaxDateAsync();
             userDate = minMaxDates.MinDate;
-            await getData();
+            getData();
         }
 
-        private async Task getData()
+        private Task getData()  
         {
-            //Thread.Sleep(5000);
-            websites = await WebsiteService.GetWebsitesAsync(userDate.ToShortDateString(), topNumber);
-            appliedColumnValue = userColumnValue;
-            string jsonWebsites = JsonConvert.SerializeObject(websites);
-            var parsedWebsites = JObject.Parse("{ 'items':" + jsonWebsites + "}");
-            jWebsites = (JArray)parsedWebsites["items"];
+            websites = null;
+            this.StateHasChanged();
+            return WebsiteService
+                .GetWebsitesAsync(userDate.ToShortDateString(), topNumber)
+                .ContinueWith(e =>
+                {
+                    websites = new JArray();
+                    appliedColumnValue = userColumnValue;
+                    string jsonWebsites = JsonConvert.SerializeObject(e.Result);
+                    var parsedWebsites = JObject.Parse("{ 'items':" + jsonWebsites + "}");
+                    ((JArray)parsedWebsites["items"]).ToList().ForEach(item =>
+                    {
+                        Thread.Sleep(75);
+                        websites.Add((JObject)item);
+                        this.StateHasChanged();
+                    });
+                });
         }
     }
