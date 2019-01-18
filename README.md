@@ -1,8 +1,8 @@
-# Blazor/Razor components with SSR(server side rendered) accessed through browser built in .Net Core(2.1) using Entity Framework code first interfacing In-memory/MS-Sql db 
+# Blazor/Razor components with SSR(server side rendered) accessed through browser, built in .Net Core(2.1) using Entity Framework code first interfacing In-memory/MS-Sql db 
 
-Project showcases Blazor/Razor Components frontend UI(using C#) rendered on server(SSR) consuming data from the in-memory/sql database which communicates using .Net Core service using entity framework code first to database pattern
+Project showcases Blazor/Razor Components frontend UI(using C#) rendered on server(SSR) consuming data from the in-memory/sql database using .Net Core service with entity framework code first to database pattern
 
-Overall project communicates between client & server using SignalR to render HTML(built on server) & C# oriented UI
+Overall project communicates between client & server using SignalR(part of the framework and does not require explicit implementation) to render HTML(built on server) & C# oriented UI
 
 <br/>
 
